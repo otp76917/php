@@ -49,23 +49,32 @@ try {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $_POST["user"];
     $pswd = $_POST["pswd"];
-    $stmt = $pdo->query("SELECT Nombre, Clave FROM usuarios");
+    $stmt = $pdo->query("SELECT Codigo, Nombre, Clave FROM usuarios");
     $user_exists = false;
     $id = 0;
     while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) { 
         if ($fila["Nombre"] == $user && $fila["Clave"] == $pswd) {
             $user_exists = true;
+            $id = $fila["Codigo"];
         }
     } 
 
     if ($_POST["login"] === "enter") {
         if ($user_exists) {
-            header("Location: jugar.php?id={}");
+            header("Location: jugar.php?id={$id}");
         }
     }
     else {
         $user_exists = !$user_exists;
-        var_dump($user_exists);
+        if ($user_exists) {
+            $stmt = $pdo->prepare("INSERT INTO usuarios (Nombre, Clave) VALUES (:nombre, :clave)");
+            $stmt->bindParam(':nombre', $user);
+            $stmt->bindParam(':clave', $pswd);
+            $stmt->execute();
+            echo "<p style='color:green;'>Usuario registrado correctamente.</p>";
+        } else {
+            echo "<p style='color:red;'>El usuario ya existe.</p>";
+        }
     }
 }
 
