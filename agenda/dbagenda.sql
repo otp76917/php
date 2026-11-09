@@ -1,0 +1,23 @@
+DROP DATABASE IF EXISTS agenda;
+CREATE DATABASE agenda CHARSET utf8mb4;
+USE agenda;
+
+CREATE TABLE usuarios (
+	codigo INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(20) UNIQUE NOT NULL,
+    clave VARCHAR(255) NOT NULL,
+    rol TINYINT NOT NULL
+);
+
+CREATE TABLE configuracion (
+	max_lote INT NOT NULL,
+    num_emojis INT NOT NULL,
+    max_contactos INT NOT NULL
+);
+
+CREATE TABLE contactos (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(20) UNIQUE NOT NULL,
+    clave VARCHAR(255) NOT NULL,
+    rol TINYINT NOT NULL
+);
