@@ -68,7 +68,7 @@ $resultado = $conn->query("SELECT nombre, puntos, extra FROM jugador ORDER BY no
 
     <!-- e) Tabla de puntos por jugador -->
     <h2>Puntos por jugador</h2>
-    <table border="1">
+    <table border="50">
         <tr>
             <th>Nombre</th>
             <th>Puntos</th>
